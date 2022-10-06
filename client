@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+import sys
+from wordle_player import WordlePlayer
+
+# Default settings
+host = ""
+user = None
+use_tls = False
+port = None
+
+# Collecting command-line arguments
+for x in range(len(sys.argv)):
+    if sys.argv[x].startswith("-s"):
+        use_tls = True
+        port = 27994
+
+if not use_tls:
+    port = 27993
+
+for x in range(len(sys.argv)):
+    if sys.argv[x].startswith("-p"):
+        port = int(sys.argv[x + 1])
+
+if len(sys.argv) > 1:
+    host = sys.argv[-2]
+    user = sys.argv[-1]
+
+# Creates the wordle player object
+player = WordlePlayer(host, port, user, use_tls)
+
+# Send initial message to start the game
+player.play()
+
+
+
+
+
